@@ -27,7 +27,7 @@ local function parse_query_response(res)
 		-- 0: no preference
 		-- 1: dark
 		-- 2: light
-		return string.match(res, "uint32 1") ~= nil
+		return string.match(res, "prefer%-dark") ~= nil
 	elseif system == "Darwin" then
 		return res == "Dark"
 	elseif system == "Windows_NT" or system == "WSL" then
@@ -86,14 +86,7 @@ local function init()
 	  ]])
 		end
 
-		query_command = table.concat({
-			"dbus-send --session --print-reply=literal --reply-timeout=1000",
-			"--dest=org.freedesktop.portal.Desktop",
-			"/org/freedesktop/portal/desktop",
-			"org.freedesktop.portal.Settings.Read",
-			"string:'org.freedesktop.appearance'",
-			"string:'color-scheme'",
-		}, " ")
+		query_command = "gsettings get org.gnome.desktop.interface color-scheme"
 	elseif system == "Windows_NT" or system == "WSL" then
 		-- Don't swap the quotes; it breaks the code
 		query_command =
