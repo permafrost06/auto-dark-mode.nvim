@@ -1,3 +1,5 @@
+## This fork differs from the origin by querying `gsettings get org.gnome.desktop.interface color-scheme`, instead of reading `org.freedesktop.appearance.color-scheme` via `dbus-send`
+## This is probably not the best way to do this but my setup doesn't have `org.freedesktop.appearance.color-scheme` so, I quickly hacked this up
 # auto-dark-mode.nvim
 A Neovim plugin for macOS, Linux, and Windows that automatically changes the
 editor appearance based on system settings.
@@ -37,9 +39,10 @@ Plug 'f-person/auto-dark-mode.nvim'
 ```
 
 ## Requirements
-* macOS, a Linux environment that implements
-  [`org.freedesktop.appearance.color-scheme`](https://github.com/flatpak/xdg-desktop-portal/issues/629),
+* a Linux environment that implements
+  `org.gnome.desktop.interface color-scheme`,
   Windows 10+ or WSL
+  * No idea if this is the correct or optimal way of doing this
 * Neovim
 
 ## Configuration
